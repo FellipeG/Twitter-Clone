@@ -13,7 +13,11 @@
 
     if ($resultado_id) {
         $dados = $resultado_id->fetch_array();
-        var_dump($dados);
+        if(isset($dados['usuario'])) {
+            echo 'Usuário existe!';
+        } else {
+            header('Location: index.php?erro=1');
+        }
     } else {
         echo 'Erro na execução do SQL.';
     }
