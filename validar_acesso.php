@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     require_once ('db.class.php');
 
     $usuario = $_POST['usuario'];
@@ -8,13 +10,17 @@
     $objDb = new Db();
     $conn = $objDb->conecta_mysql();
 
-    $sql = "SELECT * FROM usuarios WHERE usuario='$usuario' AND senha='$senha'";
+    $sql = "SELECT usuario, email FROM usuarios WHERE usuario='$usuario' AND senha='$senha'";
     $resultado_id = mysqli_query($conn, $sql);
 
     if ($resultado_id) {
         $dados = $resultado_id->fetch_array();
         if(isset($dados['usuario'])) {
-            echo 'Usuário existe!';
+
+            $_SESSION['usuario'] = $dados['usuario'];
+            $_SESSION['email'] = $dados['email'];
+
+            header('Location: home.php');
         } else {
             header('Location: index.php?erro=1');
         }
