@@ -22,8 +22,8 @@
 
 				$('#btn_login').click(function() {
 
-					var usuario = $('#campo_usuario').val().replace(' ', '');
-					var senha = $('#campo_senha').val().replace(' ', '');
+					var usuario = $('#campo_usuario').val().replace(/\s/g, "");
+					var senha = $('#campo_senha').val().replace(/\s/g, "");
 
 					if (usuario == "") {
 						$('#campo_usuario').css({"border-color": "red"}).focus();
