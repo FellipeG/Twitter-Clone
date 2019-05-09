@@ -18,7 +18,32 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	
 		<script>
-			// código javascript						
+			$(document).ready(function() {
+
+				$('#btn_login').click(function() {
+
+					var usuario = $('#campo_usuario').val().replace(' ', '');
+					var senha = $('#campo_senha').val().replace(' ', '');
+
+					if (usuario == "") {
+						$('#campo_usuario').css({"border-color": "red"}).focus();
+						return false;
+					} else {
+						$('#campo_usuario').css({"border-color": "#CCC"}).focus();
+					}
+
+					if (senha == "") {
+						$('#campo_senha').css({"border-color": "red"});
+						return false;
+					} else {
+						$('#campo_senha').css({"border-color": "#CCC"});
+					}
+
+						return true;
+
+				});
+
+			});						
 		</script>
 	</head>
 
