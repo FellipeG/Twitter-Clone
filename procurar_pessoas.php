@@ -13,7 +13,7 @@
 	<head>
 		<meta charset="UTF-8">
 
-		<title>Twitter clone - Home</title>
+		<title>Twitter clone - Procurar pessoas</title>
 		
 		<!-- jquery - link cdn -->
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -25,37 +25,23 @@
 
 			$(document).ready(function() {
 
-				$('#btn_tweet').click(function() {
+				$('#btn_procurar_pessoas').click(function() {
 
-					if ($('#texto_tweet').val().length > 0) {
+					if ($('#nome_pessoa').val().length > 0) {
 
 						$.ajax({
-							url: 'inclui_tweet.php',
+							url: 'get_pessoas.php',
 							method: 'post',
-							data: $("#form_tweet").serialize(), // passando todos os campos de uma vez
-							//data: { texto_tweet: $('#texto_tweet').val() }, // passando valores manualmente
+							data: $("#nome_pessoa").serialize(), // passando todos os campos de uma vez
+							//data: { texto_tweet: $('#nome_pessoa').val() }, // passando valores manualmente
 							success: function(data) {
-								$('#texto_tweet').val('');
-								atualizaTweet();
+								$('#pessoas').html(data);
 							}
 						});
 
 					}
 
 				});
-
-				function atualizaTweet() {
-
-					$.ajax({
-						url: 'get_tweet.php',
-						success: function(data) {
-							$('#tweets').html(data);
-						}
-					});
-
-				}
-
-				atualizaTweet();
 
 			});
 
@@ -80,6 +66,7 @@
 	        
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav navbar-right">
+                <li><a href="home.php">Voltar para home</a></li>
 	            <li><a href="sair.php">Sair</a></li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
@@ -111,15 +98,15 @@
 	    	<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<form id="form_tweet" class="input-group">
-								<input type="text" class="form-control" name="texto_tweet" id="texto_tweet" placeholder="O que está acontecendo agora?" maxlength="140" />
+							<form id="form_procurar_pessoas" class="input-group">
+								<input type="text" class="form-control" name="nome_pessoa" id="nome_pessoa" placeholder="Quem você está procurando?" maxlength="140" />
 								<span class="input-group-btn">
-									<button class="btn btn-default" id="btn_tweet" type="button">Tweet</button>
+									<button class="btn btn-default" id="btn_procurar_pessoas" type="button">Procurar</button>
 								</span>
 							</form>
 						</div>
 
-						<div id="tweets" class="list-group">
+						<div id="pessoas" class="list-group">
 
 						</div>
 
@@ -129,7 +116,7 @@
 				<div class="col-md-3">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h4><a href="procurar_pessoas.php">Procurar por pessoas</a></h4>
+
 						</div>
 					</div>
 				</div>
