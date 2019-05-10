@@ -10,13 +10,14 @@
     $objDb = new Db();
     $conn = $objDb->conecta_mysql();
 
-    $sql = "SELECT usuario, email FROM usuarios WHERE usuario='$usuario' AND senha='$senha'";
+    $sql = "SELECT id, usuario, email FROM usuarios WHERE usuario='$usuario' AND senha='$senha'";
     $resultado_id = mysqli_query($conn, $sql);
 
     if ($resultado_id) {
         $dados = $resultado_id->fetch_array();
         if(isset($dados['usuario'])) {
 
+            $_SESSION['id'] = $dados['id'];
             $_SESSION['usuario'] = $dados['usuario'];
             $_SESSION['email'] = $dados['email'];
 
