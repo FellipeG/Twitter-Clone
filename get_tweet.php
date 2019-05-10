@@ -14,21 +14,16 @@
 
     $id_usuario = $_SESSION['id'];
 
-    $sql = "SELECT * FROM tweet WHERE id_usuario=$id_usuario ORDER BY data_inclusao DESC";
+    $sql = "SELECT DATE_FORMAT(t.data_inclusao, '%d %b %Y %T') AS data_inclusao_f, t.tweet, u.usuario FROM tweet t INNER JOIN usuarios u ON t.id_usuario = u.id WHERE t.id_usuario=$id_usuario ORDER BY t.data_inclusao DESC";
     $query = mysqli_query($conn, $sql);
     if ($query) {
 
-        $arr = array();
-
         while ($linha = $query->fetch_array(MYSQLI_ASSOC)){
-            $arr[] = $linha;
-        }
-
-        if (count($arr) != 0) {
-            foreach ($arr AS $tweet) {
-                $data =  date("d-m-Y H:i:s", strtotime($tweet['data_inclusao']));
-                echo "<p>$data<hr />$tweet[tweet]</p>";
-            }
+           
+            echo '<a href="#" class="list-group-item">';
+            echo "<h4 class='list-group-item-heading'>$linha[usuario] <small>$linha[data_inclusao_f]</small></h4>";
+            echo "<p>$linha[tweet]</p>";
+            echo '</a>';
         }
 
     } else {

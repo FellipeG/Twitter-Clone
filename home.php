@@ -36,7 +36,6 @@
 							//data: { texto_tweet: $('#texto_tweet').val() }, // passando valores manualmente
 							success: function(data) {
 								$('#texto_tweet').val('');
-								alert(data);
 								atualizaTweet();
 							}
 						});
