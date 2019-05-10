@@ -3,7 +3,8 @@
     session_start();
 
     if (!isset($_SESSION['usuario'])) {
-        header('Location: index.php?erro=1');
+				header('Location: index.php?erro=1');
+				die();
     }
 
 ?>
@@ -36,6 +37,20 @@
 							//data: { texto_tweet: $('#nome_pessoa').val() }, // passando valores manualmente
 							success: function(data) {
 								$('#pessoas').html(data);
+								$('.btn_seguir').click(function() {
+									var id_usuario = $(this).data('id_usuario');
+									
+									$.ajax({
+										url: 'seguir.php',
+										method: 'post',
+										data: {'id_seguido' : id_usuario},
+										success: function(data) {
+											alert(data);
+										}
+
+									});
+
+								});
 							}
 						});
 
