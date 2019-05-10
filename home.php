@@ -37,15 +37,26 @@
 							success: function(data) {
 								$('#texto_tweet').val('');
 								alert(data);
-							},
-							complete: function() { 
-								$('#texto_tweet').attr('value', '');
+								atualizaTweet();
 							}
 						});
 
 					}
 
 				});
+
+				function atualizaTweet() {
+
+					$.ajax({
+						url: 'get_tweet.php',
+						success: function(data) {
+							$('#tweets').html(data);
+						}
+					});
+
+				}
+
+				atualizaTweet();
 
 			});
 
@@ -108,6 +119,11 @@
 								</span>
 							</form>
 						</div>
+
+						<div id="tweets" class="list-group">
+
+						</div>
+
 					</div>
 				</div>
 
