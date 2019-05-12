@@ -4,7 +4,32 @@
 
     if (!isset($_SESSION['usuario'])) {
         header('Location: index.php?erro=1');
-    }
+		}
+
+		require_once('db.class.php');
+		
+		$objDb = new Db();
+		$conn = $objDb->conecta_mysql();
+
+		// Retornar quantidade de Tweets
+		$sql = "SELECT COUNT(*) FROM tweet WHERE id_usuario=$_SESSION[id]";
+		if ($query = mysqli_query($conn, $sql)) {
+			$arr = $query->fetch_array(MYSQLI_NUM);
+			$tweets = $arr[0];
+		} else {
+			echo 'Erro no Select de tweets';
+			die();
+		}
+
+		// Retornar quantidade de seguidores
+		$sql = "SELECT COUNT(*) FROM seguidores WHERE id_seguido=$_SESSION[id]";
+		if ($query = mysqli_query($conn, $sql)) {
+			$arr = $query->fetch_array(MYSQLI_NUM);
+			$seguidores = $arr[0];
+		} else {
+			echo 'Erro no Select de seguidores';
+			die();
+		}
 
 ?>
 
@@ -97,11 +122,11 @@
 							<hr />
 
 							<div class="col-md-6">
-								TWEETS <br /> 1
+								TWEETS <br /> <?= $tweets ?>
 							</div>
 
 							<div class="col-md-6">
-								SEGUIDORES <br /> 1
+								SEGUIDORES <br /> <?= $seguidores ?>
 							</div>
 
 						</div>
