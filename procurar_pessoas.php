@@ -51,6 +51,22 @@
 									});
 
 								});
+
+								$('.btn_deixarDeSeguir').click(function(){
+
+									var id_usuario = $(this).data('id_usuario');
+
+									$.ajax({
+										url: 'deixar_seguir.php',
+										method: 'post',
+										data: {'id_usuario': id_usuario},
+										success: function(data) {
+											alert(data);
+										}
+									});
+
+								});
+
 							}
 						});
 
