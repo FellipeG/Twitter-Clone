@@ -14,7 +14,14 @@
 
     $id_usuario = $_SESSION['id'];
 
-    $sql = "SELECT DATE_FORMAT(t.data_inclusao, '%d %b %Y %T') AS data_inclusao_f, t.tweet, u.usuario FROM tweet t INNER JOIN usuarios u ON t.id_usuario = u.id WHERE t.id_usuario=$id_usuario ORDER BY t.data_inclusao DESC";
+    $sql = "SELECT DATE_FORMAT(t.data_inclusao, '%d %b %Y %T') 
+            AS data_inclusao_f, t.tweet, u.usuario 
+            FROM tweet t INNER JOIN usuarios u 
+            ON t.id_usuario = u.id 
+            WHERE t.id_usuario=$id_usuario
+            OR t.id_usuario IN (SELECT id_seguido FROM seguidores WHERE id_seguidor=$id_usuario)
+            ORDER BY t.data_inclusao DESC";
+
     $query = mysqli_query($conn, $sql);
     if ($query) {
 
