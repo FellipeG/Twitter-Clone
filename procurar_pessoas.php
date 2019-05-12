@@ -45,6 +45,8 @@
 										method: 'post',
 										data: {'id_seguido' : id_usuario},
 										success: function(data) {
+											$('#btn_seguir'+id_usuario).hide();
+											$('#btn_deixarDeSeguir'+id_usuario).show();
 											alert(data);
 										}
 
@@ -61,6 +63,8 @@
 										method: 'post',
 										data: {'id_usuario': id_usuario},
 										success: function(data) {
+											$('#btn_seguir'+id_usuario).show();
+											$('#btn_deixarDeSeguir'+id_usuario).hide();
 											alert(data);
 										}
 									});
